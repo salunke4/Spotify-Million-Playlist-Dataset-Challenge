@@ -15,5 +15,6 @@ Collaboration
 
 3) Conflict Resolution: In the case of any team conflict, we will first try to work the issue out amongst ourselves by meeting with the team and determining how to best work around the issue. However, if this strategy fails, we will discuss with our final project mentor and the course staff to determine the best course of action. 
 
-Signatures
+Signatures:
+
 Rohan Harpalani (rohanhh2)
