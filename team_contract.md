@@ -1,4 +1,4 @@
-# CS 225 Final Team Project
+# Final Project Team Contract
 
 ## Communication
 ### 1) Team Meetings: 
