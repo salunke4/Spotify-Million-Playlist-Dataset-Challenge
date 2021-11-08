@@ -1,4 +1,4 @@
-Final Project Proposal
+#Final Project Proposal
 
 1) Leading Question: Our team is planning on using Spotify's Million Playlist Dataset (MPD), which is a dataset organized by Spotify containing over 1 million playlists and 2 million unique tracks. Each playlist in the MPD contains a playlist title, the track list (including metadata for each track) and other metadata fields including edit time and number of playlist edits. Our goal is to create a recommendation system so that users can input a song name and the algorithm will return a list of similar songs based on other playlists containing the input song. This algorithm will provide the user with songs that other users associate with the input song based on existing playlists. 
 
