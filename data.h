@@ -10,10 +10,9 @@
 using namespace std;
 
 class Data {
+    explicit Data(vector<string> filenames);
+    Graph readFiles();
+
     private:
         vector<string> filenames_;
-
-    public:
-        explicit Data(vector<string> filenames);
-        Graph readFiles();
 };
