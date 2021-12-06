@@ -27,6 +27,6 @@ with open('/home/rohanhh2/cs225final/data/raw.json') as json_data:
         if (j > 10):
             p.pop(11)
             
-open("output_reduced.json", "w").write(
+open("output.json", "w").write(
     json.dumps(data, sort_keys=True, indent=4, separators=(',',': '))
 )
