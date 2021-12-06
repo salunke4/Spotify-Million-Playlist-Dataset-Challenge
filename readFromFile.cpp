@@ -16,6 +16,7 @@ std::string file_to_string(const std::string & filename) {
 
 	return strStream.str();
 }
+
 std::vector<std::string> file_to_vector(const std::string & filename) {
 	std::ifstream text(filename);
 	std::vector<std::string> out;

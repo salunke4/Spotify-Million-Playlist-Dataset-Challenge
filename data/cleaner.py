@@ -1,6 +1,6 @@
 import json, sys
 
-with open('###ADD FILE###') as json_data:
+with open('/home/rohanhh2/cs225final/data/raw.json') as json_data:
     data = json.load(json_data)
     
     p = data['playlists']
