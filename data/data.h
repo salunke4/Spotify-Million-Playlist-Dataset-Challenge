@@ -5,7 +5,7 @@
 #include <string>
 #include <vector>
 
-#include "graph/graph.h"
+#include "../graph/graph.h"
 
 using namespace std;
 

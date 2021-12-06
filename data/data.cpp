@@ -1,5 +1,5 @@
 #include "data.h"
-#include "json-develop/single_include/nlohmann/json.hpp"
+#include "../json-develop/single_include/nlohmann/json.hpp"
 using namespace std;
 using json = nlohmann::json;
 
