@@ -6,44 +6,174 @@
 #include "../graph/algorithms.h"
 
 TEST_CASE("DFS") {
-    /* Graph structure                    
-    *                   1             
-    *              /    |    \            
-    *             2     7     8        
-    *          /   \         / \       
-    *        3      6       12  9   
-    *      /  \    / \   
-    *     4    5  10 11              
+    /* Graph:                    
+    *                   A             
+    *               /   |   \            
+    *             B     I     J        
+    *           /  \         / \       
+    *         C     D       K   L   
+    *       / \    / \           \
+    *     E    F  G   H           M 
     */
 
     Graph graph;
-    graph.InsertVertex("1");
-    graph.InsertVertex("2");
-    graph.InsertVertex("3");
-    graph.InsertVertex("4");
-    graph.InsertVertex("5");
-    graph.InsertVertex("6");
-    graph.InsertVertex("7");
-    graph.InsertVertex("8");
-    graph.InsertVertex("9");
-    graph.InsertVertex("10");
-    graph.InsertVertex("11");
-    graph.InsertVertex("12");
-    graph.InsertEdge("1","8", 1);
-    graph.InsertEdge("1","7", 1);
-    graph.InsertEdge("1","2", 1);
-    graph.InsertEdge("2","6", 1);
-    graph.InsertEdge("2","3", 1);
-    graph.InsertEdge("3","5", 1);
-    graph.InsertEdge("3","4", 1);
-    graph.InsertEdge("8","12",1);
-    graph.InsertEdge("8","9", 1);
-    graph.InsertEdge("9","11",1);
-    graph.InsertEdge("9","10",1);
+    graph.InsertVertex("A");
+    graph.InsertVertex("B");
+    graph.InsertVertex("C");
+    graph.InsertVertex("D");
+    graph.InsertVertex("E");
+    graph.InsertVertex("F");
+    graph.InsertVertex("G");
+    graph.InsertVertex("H");
+    graph.InsertVertex("I");
+    graph.InsertVertex("J");
+    graph.InsertVertex("K");
+    graph.InsertVertex("L");
+    graph.InsertVertex("M");
+    graph.InsertEdge("A","B", 1);
+    graph.InsertEdge("B","C", 1);
+    graph.InsertEdge("B","D", 1);
+    graph.InsertEdge("C","E", 1);
+    graph.InsertEdge("C","F", 1);
+    graph.InsertEdge("D","G", 1);
+    graph.InsertEdge("D","H", 1);
+    graph.InsertEdge("A","I",1);
+    graph.InsertEdge("A","J", 1);
+    graph.InsertEdge("J","K",1);
+    graph.InsertEdge("J","L",1);
+    graph.InsertEdge("L","M",1);
     
     algorithms dfs(graph, "1");
 
     vector<string> outcome = dfs.traverse();
-    vector<string> expected = {"1", "2", "3", "4", "5", "6", "7", "8", "9", "10", "11", "12"};
+    vector<string> expected = {"A", "B", "C", "E", "F", "D", "G", "H", "I", "J", "K", "L", "M"};
     REQUIRE(expected == outcome);
+}
+
+TEST_CASE("Cycle DFS") {
+    /* Graph:
+    *         A    
+    *     /   |   \   
+    *    B    C    E  
+    *          \  / \ 
+    *            D   F
+    */
+   
+    Graph graph;
+    graph.InsertVertex("A");
+    graph.InsertVertex("B");
+    graph.InsertVertex("C");
+    graph.InsertVertex("D");
+    graph.InsertVertex("E");
+    graph.InsertVertex("F");
+    graph.InsertEdge("A","E", 1);
+    graph.InsertEdge("A","C", 1);
+    graph.InsertEdge("A","B", 1);
+    graph.InsertEdge("C","D", 1);
+    graph.InsertEdge("D","E", 1);
+    graph.InsertEdge("E","F", 1);
+
+    algorithms dfs(graph, "A");
+
+    vector<string> outcome = dfs.traverse();
+    vector<string> expected = {"A", "B", "C", "D", "E", "F"};
+    REQUIRE(outcome == expected);
+}
+
+TEST_CASE("Complex DFS") {
+    /* Graph:
+    *        A        
+    *       / \       
+    *      B   F           
+    *      | / |      
+    *      C---E--G      
+    *       \ /       
+    *        D        
+    */
+
+    Graph graph;
+    graph.InsertVertex("A");
+    graph.InsertVertex("B");
+    graph.InsertVertex("C");
+    graph.InsertVertex("D");
+    graph.InsertVertex("E");
+    graph.InsertVertex("F");
+    graph.InsertVertex("G");
+    graph.InsertEdge("A","B", 1);
+    graph.InsertEdge("B","C", 1);
+    graph.InsertEdge("C","F", 1);
+    graph.InsertEdge("C","E", 1);
+    graph.InsertEdge("C","D", 1);
+    graph.InsertEdge("E","G", 1);
+    graph.InsertEdge("E","F", 1);
+    graph.InsertEdge("F","A", 1);
+
+    algorithms dfs(graph, "1");
+
+    vector<string> outcome = dfs.traverse();
+    vector<string> expected = {"A", "B", "C", "D", "E", "F", "G"};
+    REQUIRE(outcome == expected);
+}
+
+TEST_CASE("Dijkstras") {
+    /* Graph:                    
+    *                   A             
+    *               /   |   \            
+    *             B     I     J        
+    *           /  \         / \       
+    *         C     D       K   L   
+    *       / \    / \           \
+    *     E    F  G   H           M 
+    */
+
+    Graph graph;
+    graph.InsertVertex("A");
+    graph.InsertVertex("B");
+    graph.InsertVertex("C");
+    graph.InsertVertex("D");
+    graph.InsertVertex("E");
+    graph.InsertVertex("F");
+    graph.InsertVertex("G");
+    graph.InsertVertex("H");
+    graph.InsertVertex("I");
+    graph.InsertVertex("J");
+    graph.InsertVertex("K");
+    graph.InsertVertex("L");
+    graph.InsertVertex("M");
+    graph.InsertEdge("A","B", 1);
+    graph.InsertEdge("B","C", 1);
+    graph.InsertEdge("B","D", 1);
+    graph.InsertEdge("C","E", 1);
+    graph.InsertEdge("C","F", 1);
+    graph.InsertEdge("D","G", 1);
+    graph.InsertEdge("D","H", 1);
+    graph.InsertEdge("A","I",1);
+    graph.InsertEdge("A","J", 1);
+    graph.InsertEdge("J","K",1);
+    graph.InsertEdge("J","L",1);
+    graph.InsertEdge("L","M",1);
+    
+    algorithms dijkstra(graph, "1");
+    vector<string> outcome;
+    vector<string> expected;
+
+    outcome = dijkstra.Dijkstras("A", "B");
+    expected = {"A", "B"};
+    REQUIRE(outcome == expected);
+
+    outcome = dijkstra.Dijkstras("A", "E");
+    expected = {"A", "B", "C", "E"};
+    REQUIRE(outcome == expected);
+
+    outcome = dijkstra.Dijkstras("B", "F");
+    expected = {"B", "C", "F"};
+    REQUIRE(outcome == expected);
+
+    outcome = dijkstra.Dijkstras("A", "M");
+    expected = {"A", "J", "L", "M"};
+    REQUIRE(outcome == expected);
+
+    outcome = dijkstra.Dijkstras("H", "I");
+    expected = {"H", "D", "B", "A", "I"};
+    REQUIRE(outcome == expected);
 }

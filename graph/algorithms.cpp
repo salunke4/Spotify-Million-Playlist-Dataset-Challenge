@@ -10,6 +10,7 @@ algorithms::algorithms(Graph g, string start) {
   graph_ = g;
   start_ = start;
 }
+
 vector<string> algorithms::traverse() {
   stack<string> stack;
   vector<string> visited;
