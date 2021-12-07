@@ -17,3 +17,24 @@ $(EXE): $(EXE_OBJS)
 
 main.o : main.cpp
 	$(CXX) $(CXXFLAGS) main.cpp
+CPP_TEST = $(wildcard tests/*.cpp)
+CPP_TEST += catch/catchmain.cpp
+TEST_OBJS = $(OBJS) $(CPP_TEST:.cpp=.o)
+
+test: catch/catchmain.cpp tests/test_parsing.cpp tests/test_graph.cpp tests/test_dfs.cpp data/data.cpp graph/graph.cpp graph/algorithms.cpp
+	$(LD) catch/catchmain.cpp tests/test_parsing.cpp tests/test_graph.cpp tests/test_dfs.cpp data/data.cpp graph/graph.cpp graph/algorithms.cpp $(LDFLAGS) -o test
+
+catchmain.o: catch/catchmain.cpp
+	$(CXX) $(CXXFLAGS) catch/catchmain.cpp
+
+data.o : data/data.cpp
+	$(CXX) $(CXXFLAGS) data/data.cpp
+
+graph.o : graph/graph.cpp
+	$(CXX) $(CXXFLAGS) graph/graph.cpp
+
+algorithms.o : graph/algorithms.cpp
+	$(CXX) $(CXXFLAGS) graph/algorithms.cpp
+
+clean:
+	$(RM) $(EXE) .o tests/.o
