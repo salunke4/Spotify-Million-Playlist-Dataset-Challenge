@@ -1,6 +1,7 @@
 #include <string>
 #include <vector>
 #include <iostream>
+
 #include "../catch/catch.hpp"
 #include "../graph/graph.h"
 #include "../graph/algorithms.h"
@@ -30,24 +31,24 @@ TEST_CASE("DFS") {
     graph.InsertVertex("K");
     graph.InsertVertex("L");
     graph.InsertVertex("M");
-    graph.InsertEdge("A","B", 1);
-    graph.InsertEdge("B","C", 1);
-    graph.InsertEdge("B","D", 1);
-    graph.InsertEdge("C","E", 1);
-    graph.InsertEdge("C","F", 1);
-    graph.InsertEdge("D","G", 1);
-    graph.InsertEdge("D","H", 1);
-    graph.InsertEdge("A","I",1);
     graph.InsertEdge("A","J", 1);
-    graph.InsertEdge("J","K",1);
-    graph.InsertEdge("J","L",1);
-    graph.InsertEdge("L","M",1);
+    graph.InsertEdge("A","I", 1);
+    graph.InsertEdge("A","B", 1);
+    graph.InsertEdge("B","D", 1);
+    graph.InsertEdge("B","C", 1);
+    graph.InsertEdge("C","F", 1);
+    graph.InsertEdge("C","E", 1);
+    graph.InsertEdge("D","H", 1);
+    graph.InsertEdge("D","G", 1);
+    graph.InsertEdge("J","K", 1);
+    graph.InsertEdge("J","L", 1);
+    graph.InsertEdge("L","M", 1);
     
     algorithms dfs(graph, "A");
     vector<string> outcome, expected;
 
     outcome = dfs.traverse();
-    expected = {"A", "B", "C", "E", "F", "D", "G", "H", "I", "J", "K", "L", "M"};
+    expected = {"A", "B", "C", "E", "F", "D", "G", "H", "I", "J", "L", "M", "K"};
     REQUIRE(expected == outcome);
 }
 
@@ -70,15 +71,16 @@ TEST_CASE("Complex DFS") {
     graph.InsertVertex("E");
     graph.InsertVertex("F");
     graph.InsertVertex("G");
+    graph.InsertEdge("A","F", 1);
     graph.InsertEdge("A","B", 1);
     graph.InsertEdge("B","C", 1);
     graph.InsertEdge("C","F", 1);
     graph.InsertEdge("C","E", 1);
     graph.InsertEdge("C","D", 1);
+    graph.InsertEdge("D","E", 1);
     graph.InsertEdge("E","G", 1);
     graph.InsertEdge("E","F", 1);
-    graph.InsertEdge("F","A", 1);
-
+    
     algorithms dfs(graph, "A");
     vector<string> outcome, expected;
 
