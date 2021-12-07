@@ -17,6 +17,7 @@ $(EXE): $(EXE_OBJS)
 
 main.o : main.cpp
 	$(CXX) $(CXXFLAGS) main.cpp
+
 CPP_TEST = $(wildcard tests/*.cpp)
 CPP_TEST += catch/catchmain.cpp
 TEST_OBJS = $(OBJS) $(CPP_TEST:.cpp=.o)
