@@ -1,14 +1,16 @@
 # Development
 
 ### Week 0 (11/1)
-In this week we as a group worked on deciding what we wanted to do for our final project. All of us wanted to work on a unique dataset so we decided to utilize the Spotify Million Hits. Our code would take a song in as input from the user and then generate 5 recommended similar songs from the Spotify Million Hits dataset. We also got together as a group and completed our team contract. A group chat as well as a loose work timeline were created to organize a method of communication and a general idea of how we would go about completing this project. Rohan was the project leader and Prathamesh was the note-taker for this week.
+This week we as a group worked on deciding what we wanted to do for our final project. All of us wanted to work on a unique dataset so we decided to utilize the Spotify Million Hits. Our code would take a song in as input from the user and then generate 5 recommended similar songs from the Spotify Million Hits dataset. We also got together as a group and completed our team contract. A group chat as well as a loose work timeline were created to organize a method of communication and a general idea of how we would go about completing this project. Rohan was the project leader and Prathamesh was the note-taker for this week.
 ### Week 1 (11/8)
-In this week we focused on making sure our data was reliable then retrieving the data set and cleaning it. Once we had retrieved the Spotify Million Hits playlist we realized that the data was quite large and contained data we did not need. Since we as a group were more skilled in Python, we decided to use Jupyter Notebook to splice the data and get rid of the columns from the dataset we did not need. This week Sathvik was the project leader and Guneet was the note-taker. 
+This week we focused on making sure our data was reliable and then retrieving the data set and cleaning it. Once we had retrieved the Spotify Million Hits playlist we realized that the data was quite large and contained data we did not need. Since we as a group were more skilled in Python, we decided to use Jupyter Notebook to splice the data and get rid of the columns from the dataset we did not need. This week Sathvik was the project leader and Guneet was the note-taker. 
 ### Week 2 (11/15)
+This week we completed the data splicing process we had started from the previous week. To add on, we made our data into 1000 playlist partitions. As a team we decided that we would be using Iterative Deepening DFS as well as Djikstra's algorithm as the algorithms needed to complete our project's goals. After that decision was made, we began implementation of our code and used an adjacency list when mapping our data to a graph. In that graph, the songs were the nodes and the weight of the edges would be the amount of time the songs appeared in playlists. Guneet was the project leader for this week and Rohan was the note taker. 
 
 ### Week 3 (11/22)
+This week our group focused mainly on implementing the algorithms that we chose last week and writing basic test cases to check if our data was properly placed in a graph. The majority of our test cases made this week were centered on if the nodes were properly connected and if the respective edges had the right weight. Since we also completed our Iterative Deepening DFS, we wrote test cases to see if our DFS algorithm was properly traversing the graph. Prathamesh was the project leader and Sathvik was the note-taker this week. 
 
 ### Week 4 (11/29)
-guneet do til here
+
 
 ### Week 5 (12/6)
