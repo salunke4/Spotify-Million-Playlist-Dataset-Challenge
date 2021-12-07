@@ -1,6 +1,7 @@
 # Development
 
 ### Week 0 (11/1)
+hi
 
 ### Week 1 (11/8)
 
