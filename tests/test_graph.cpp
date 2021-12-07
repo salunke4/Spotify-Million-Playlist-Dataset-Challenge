@@ -23,7 +23,7 @@ TEST_CASE("Inserting & Removing Vertices") {
     sort(actual.begin(), actual.end());
     REQUIRE(expected == actual);
   }
-  SECTION("Inserting vertex that already exists doesn't create duplicate vertex") {
+  SECTION("Inserting vertex that already exists does not create duplicate vertex") {
     Graph graph;
     graph.InsertVertex("A");
     graph.InsertVertex("B");
@@ -127,7 +127,7 @@ TEST_CASE("Inserting & Removing Edges, IsAdjacent, GetEdgeValue") {
     graph.InsertEdge("C", "G");
     graph.InsertEdge("A", "H");
     REQUIRE(graph.IsAdjacent("A", "B"));
-    REQUIRE(graph.IsAdjacent("B", "A")); // Tests that IsAdjacent checks both sides each edge
+    REQUIRE(graph.IsAdjacent("B", "A")); 
     REQUIRE(graph.IsAdjacent("C", "G"));
     REQUIRE(graph.IsAdjacent("A", "H"));
   }
