@@ -1,68 +1,67 @@
-// TODO: Edge Tests
-
 #include <string>
 #include <vector>
 
 #include "../catch/catch.hpp"
-
 #include "../graph/graph.h"
 #include "../data/data.h"
 #include "../graph/algorithms.h"
 
-TEST_CASE("Test Data Parsing") {
-  // duplicate nodes in different playlists not added
-  SECTION("Parsing returns correct number of nodes") {
-    std::vector<string> files;
-    files.push_back("tests/parsing_sample.json");
-    Data data(files);
-    Graph gr = data.readFiles();
-    REQUIRE(gr.GetNumVertices() == 11);
-  }
+// duplicate nodes in different playlists not added
+TEST_CASE("Correct Number of Nodes") {
+  std::vector<string> files;
+  files.push_back("tests/parsing_sample.json");
+  Data data(files);
+  Graph gr = data.readFiles();
+  REQUIRE(gr.GetNumVertices() == 5);
+}
 
-  // nodes are only connected to other nodes in the same playlist
-  SECTION("Parsing correctly returns edges") {
-    std::vector<string> files;
-    files.push_back("tests/parsing_sample.json");
-    Data data(files);
-    Graph gr = data.readFiles();
-    REQUIRE(gr.GetNumEdges() == );
-  }
+// nodes are only connected to other nodes in the same playlist
+TEST_CASE("Correct Number of Edges") {
+  std::vector<string> files;
+  files.push_back("tests/parsing_sample.json");
+  Data data(files);
+  Graph gr = data.readFiles();
+  REQUIRE(gr.GetNumEdges() == 8);
+}
 
-  SECTION("Parsing correctly adds edges between nodes") {
-    std::vector<string> files;
-    files.push_back("tests/parsing_sample.json");
-    Data data(files);
-    Graph g = data.readFiles();
-    vector<string> expected1 = {"Dynasty", "First", "Like It Doesn't Hurt (feat. Husser)", "One Dance",
-                                 "Water Under the Bridge", "Your Girl"};
-    vector<string> actual1 = g.AdjacentVertices("Bare");
-    sort(actual1.begin(), actual1.end());
-    REQUIRE(expected1 == actual1);
-    vector<string> expected2 = {"Bare", "Dynasty", "Like It Doesn't Hurt (feat. Husser)", "One Dance",
-                                 "Your Girl"};
-    vector<string> actual2 = g.AdjacentVertices("First");
-    sort(actual2.begin(), actual2.end());
-    REQUIRE(expected2 == actual2);
-    vector<string> expected3 = {"Like It Doesn't Hurt (feat. Husser)", "Your Girl"};
-    vector<string> actual3 = g.AdjacentVertices("Letting In");
-    sort(actual3.begin(), actual3.end());
-    REQUIRE(expected3 == actual3);
-  }
+// if songs are in n playlists together, their incident edge has weight n
+TEST_CASE("Correct Edge Weights") {
+  std::vector<string> files;
+  files.push_back("tests/parsing_sample.json");
+  Data data(files);
+  Graph gr = data.readFiles();
+  REQUIRE(gr.GetEdgeValue("Pink + White", "Sober") == 1);
+  REQUIRE(gr.GetEdgeValue("Love$ick (feat. A$AP Rocky)", "Redbone") == 2);
+}
 
-  SECTION("Edge weights properly updated") {
-    std::vector<string> files;
-    files.push_back("tests/sample.json");
-    Data data(files);
-    Graph g = data.readFiles();
-    REQUIRE(1 == g.GetEdgeValue("Bare", "Dynasty"));
-    REQUIRE(2 == g.GetEdgeValue("Bare", "Your Girl"));
-    REQUIRE(3 == g.GetEdgeValue("Your Girl", "Like It Doesn't Hurt (feat. Husser)"));
-    }
+// nodes are only connected to other nodes in the same playlist
+TEST_CASE("Correct Edges Between Nodes") {
+  std::vector<string> files;
+  files.push_back("tests/parsing_sample.json");
+  Data data(files);
+  Graph gr = data.readFiles();
+  vector<string> expected, outcome; 
 
-SECTION("Throws exception when file is invalid") {
-    std::vector<string> files;
-    files.push_back("tests/invalid_file.json");
-    Data data(files);
-    REQUIRE_THROWS_AS(data.readFiles(), std::runtime_error);
-  }
+  outcome = gr.AdjacentVertices("Pink + White");
+  expected = {"Love$ick (feat. A$AP Rocky)", "Redbone", "Sober"};
+  sort(outcome.begin(), outcome.end());
+  REQUIRE(expected == outcome);
+
+  outcome = gr.AdjacentVertices("Me and Your Mama");
+  expected = {"Love$ick (feat. A$AP Rocky)", "Redbone"};
+  sort(outcome.begin(), outcome.end());
+  REQUIRE(expected == outcome);
+
+  outcome = gr.AdjacentVertices("Love$ick (feat. A$AP Rocky)");
+  expected = {"Me and Your Mama", "Pink + White", "Redbone", "Sober"};
+  sort(outcome.begin(), outcome.end());
+  REQUIRE(expected == outcome);
+}
+
+// throws runtime error for invalid file
+TEST_CASE("Invalid Files") {
+  std::vector<string> files;
+  files.push_back("tests/nonexistent.json");
+  Data data(files);
+  REQUIRE_THROWS_AS(data.readFiles(), std::runtime_error);
 }

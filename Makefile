@@ -23,16 +23,20 @@ CPP_TEST += catch/catchmain.cpp
 TEST_OBJS = $(OBJS) $(CPP_TEST:.cpp=.o)
 
 # Full Test
-#test: catch/catchmain.cpp tests/test_parsing.cpp tests/test_graph.cpp tests/test_algorithms.cpp data/data.cpp graph/graph.cpp graph/algorithms.cpp
-#	$(LD) catch/catchmain.cpp tests/test_parsing.cpp tests/test_graph.cpp tests/test_algorithms.cpp data/data.cpp graph/graph.cpp graph/algorithms.cpp $(LDFLAGS) -o test
+test: catch/catchmain.cpp tests/test_parsing.cpp tests/test_graph.cpp tests/test_algorithms.cpp data/data.cpp graph/graph.cpp graph/algorithms.cpp
+	$(LD) catch/catchmain.cpp tests/test_parsing.cpp tests/test_graph.cpp tests/test_algorithms.cpp data/data.cpp graph/graph.cpp graph/algorithms.cpp $(LDFLAGS) -o test
+
+# Parsing Unit Test
+#test: catch/catchmain.cpp tests/test_parsing.cpp tests/test_graph.cpp data/data.cpp graph/graph.cpp
+#	$(LD) catch/catchmain.cpp tests/test_parsing.cpp tests/test_graph.cpp data/data.cpp graph/graph.cpp $(LDFLAGS) -o test
 
 # Graph Unit Test
 #test: catch/catchmain.cpp tests/test_graph.cpp data/data.cpp graph/graph.cpp
 #	$(LD) catch/catchmain.cpp tests/test_graph.cpp data/data.cpp graph/graph.cpp $(LDFLAGS) -o test
 
 # Algorithm Unit Test
-test: catch/catchmain.cpp tests/test_graph.cpp tests/test_algorithms.cpp data/data.cpp graph/graph.cpp graph/algorithms.cpp
-	$(LD) catch/catchmain.cpp tests/test_graph.cpp tests/test_algorithms.cpp data/data.cpp graph/graph.cpp graph/algorithms.cpp $(LDFLAGS) -o test
+#test: catch/catchmain.cpp tests/test_graph.cpp tests/test_algorithms.cpp data/data.cpp graph/graph.cpp graph/algorithms.cpp
+#	$(LD) catch/catchmain.cpp tests/test_graph.cpp tests/test_algorithms.cpp data/data.cpp graph/graph.cpp graph/algorithms.cpp $(LDFLAGS) -o test
 
 catchmain.o: catch/catchmain.cpp
 	$(CXX) $(CXXFLAGS) catch/catchmain.cpp
