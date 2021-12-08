@@ -2,8 +2,8 @@
 #include <vector>
 
 #include "../catch/catch.hpp"
-#include "../graph/graph.h"
 #include "../data/data.h"
+#include "../graph/graph.h"
 #include "../graph/algorithms.h"
 
 // duplicate nodes in different playlists not added
