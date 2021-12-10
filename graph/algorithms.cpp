@@ -6,7 +6,7 @@
 #include <map>
 
 using namespace std;
-algorithms::algorithms(Graph g, string start) {
+algorithms::algorithms(Graph g, Vertex start) {
   graph_ = g;
   start_ = start;
 }
