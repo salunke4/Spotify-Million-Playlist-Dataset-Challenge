@@ -46,12 +46,24 @@ vector<string> algorithms::traverse() {
   return visited;
 }
 
+/**
+ * @brief Returns the shortest path between a source and destination node
+ * 
+ * @param source Starting node
+ * @param destination Ending Node
+ * @return vector<Vertex> Vector containing all vertices in the shortest path between the two
+ */
 vector<Vertex> algorithms::Dijkstras(Vertex source, Vertex destination) {
-  std::priority_queue<VertexWeight*, std::vector<VertexWeight*>, Compare> travelled;
+  // creates a priority queue to store traveled locations in 
+  std::priority_queue<VertexWeight*, std::vector<VertexWeight*>, Compare> traveled;
+
+  // creates a map storing vertices as keys and distance from last point as value
   map<Vertex, VertexWeight*> vmap;
+  
   vector<Vertex> vertices = graph_.GetVertices();
   vector<VertexWeight*> weights;
 
+  // iterates through all vertices to store vertex weights
   size_t i = 0;
   while (i < vertices.size()) {
     VertexWeight *newWeight = new VertexWeight;
@@ -64,28 +76,31 @@ vector<Vertex> algorithms::Dijkstras(Vertex source, Vertex destination) {
     
     if (vertices.at(i) == source) {
       newWeight->distance = 0;
-      travelled.push(newWeight);
+      traveled.push(newWeight);
     }
     i++;
   }
   
-  while (travelled.top()->vertexName != destination) { 
-    VertexWeight *current = travelled.top();
-    travelled.pop();
+  // if highest priority element is not destination, find nodes along path
+  while (traveled.top()->vertexName != destination) { 
+    // get last entry of path
+    VertexWeight *current = traveled.top();
+    traveled.pop();
     
     if (!current->visited) {
       vector<Vertex> neighborList = graph_.AdjacentVertices(current->vertexName);
       i = 0;
       while (i < neighborList.size()) {
         VertexWeight *neighbor = vmap[neighborList.at(i)];
+        // check if neighboring node has been visited already
         if (!neighbor->visited) { 
           double currentToNeighborEdgeWeight = graph_.GetEdgeValue(current->vertexName, neighbor->vertexName);
-
+          // update path
           if (neighbor-> distance > current->distance + currentToNeighborEdgeWeight) {
             neighbor-> distance = current->distance + currentToNeighborEdgeWeight;
             neighbor-> previous = current -> vertexName;
           }
-          travelled.push(neighbor);
+          traveled.push(neighbor);
         }
         i++;
       }
@@ -106,6 +121,7 @@ vector<Vertex> algorithms::Dijkstras(Vertex source, Vertex destination) {
     i++;
   }
   
+  // reverse path to be returned
   reverse(path.begin(),path.end());
   return path;
 }
