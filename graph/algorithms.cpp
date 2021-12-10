@@ -27,43 +27,42 @@ class Compare
       }
 };
 
-vector<string> algorithms::traverse() {
-  stack<string> stack;
-  vector<string> visited;
-  stack.push(start_);
-  while(!stack.empty()) {
-    string current = stack.top();
-    stack.pop();
-    // check if current has already been visited
-    if(find(visited.begin(), visited.end(), current) == visited.end()) { // This is a linear search which takes a while, maybe hash the strings to make it faster?
-      visited.push_back(current);
-      for(string str: graph_.AdjacentVertices(current)) {
-        stack.push(str);
-      }
+void algorithms::SCCUtil(Vertex src, Graph & g, unordered_set<Vertex> & visited, vector<Vertex> & s)
+{
+    visited.insert(src); // marks vertex as visted
+    vector<Vertex> vertex_list = graph_.AdjacentVertices(src);  // get a list of adjacent vertices
+    for (size_t i = 0; i < vertex_list.size(); i++) // iterates over adjecent vertices
+    {
+        if(visited.find(vertex_list[i]) == visited.end()) // checks if this adjecent vertex is unvisted
+        {
+            SCCUtil(vertex_list[i], g, visited, s); // calls DFS recursively on adjecent vertex
+        }
     }
-  }
-//  reverse(visited.begin(), visited.end());
-  return visited;
+    s.push_back(src); //add vertex to the stack - see parameters for more detailed explanation of utility
 }
 
-/**
- * @brief Returns the shortest path between a source and destination node
- * 
- * @param source Starting node
- * @param destination Ending Node
- * @return vector<Vertex> Vector containing all vertices in the shortest path between the two
- */
-vector<Vertex> algorithms::Dijkstras(Vertex source, Vertex destination) {
-  // creates a priority queue to store traveled locations in 
-  std::priority_queue<VertexWeight*, std::vector<VertexWeight*>, Compare> traveled;
+vector<Vertex> algorithms::traverse()
+{
+    vector<Vertex> explored; // Vector to store all vertices in graph explored through DFS
+    unordered_set<Vertex> visited; // Unordered set to track visited vertices
+    vector<Vertex> vertices = graph_.GetVertices(); // Gets vector of all vertices in graph
+    for(size_t i = 0; i < vertices.size(); i++) // Iterates over all vertices
+    {
+        if(visited.find(vertices[i]) == visited.end()) // Checks if vertex is unvisited
+        {
+            SCCUtil(vertices[i], graph_, visited, explored); // If unexplored, DFSs from this vertex and adds all reachable vertices
+        }
+    }
+    reverse(explored.begin(),explored.end());
+    return explored; // Returns vector of all vertices in graph explored through DFS
+}
 
-  // creates a map storing vertices as keys and distance from last point as value
+vector<Vertex> algorithms::Dijkstras(Vertex source, Vertex destination) {
+  std::priority_queue<VertexWeight*, std::vector<VertexWeight*>, Compare> travelled;
   map<Vertex, VertexWeight*> vmap;
-  
   vector<Vertex> vertices = graph_.GetVertices();
   vector<VertexWeight*> weights;
 
-  // iterates through all vertices to store vertex weights
   size_t i = 0;
   while (i < vertices.size()) {
     VertexWeight *newWeight = new VertexWeight;
@@ -76,31 +75,28 @@ vector<Vertex> algorithms::Dijkstras(Vertex source, Vertex destination) {
     
     if (vertices.at(i) == source) {
       newWeight->distance = 0;
-      traveled.push(newWeight);
+      travelled.push(newWeight);
     }
     i++;
   }
   
-  // if highest priority element is not destination, find nodes along path
-  while (traveled.top()->vertexName != destination) { 
-    // get last entry of path
-    VertexWeight *current = traveled.top();
-    traveled.pop();
+  while (travelled.top()->vertexName != destination) { 
+    VertexWeight *current = travelled.top();
+    travelled.pop();
     
     if (!current->visited) {
       vector<Vertex> neighborList = graph_.AdjacentVertices(current->vertexName);
       i = 0;
       while (i < neighborList.size()) {
         VertexWeight *neighbor = vmap[neighborList.at(i)];
-        // check if neighboring node has been visited already
         if (!neighbor->visited) { 
           double currentToNeighborEdgeWeight = graph_.GetEdgeValue(current->vertexName, neighbor->vertexName);
-          // update path
+
           if (neighbor-> distance > current->distance + currentToNeighborEdgeWeight) {
             neighbor-> distance = current->distance + currentToNeighborEdgeWeight;
             neighbor-> previous = current -> vertexName;
           }
-          traveled.push(neighbor);
+          travelled.push(neighbor);
         }
         i++;
       }
@@ -121,11 +117,9 @@ vector<Vertex> algorithms::Dijkstras(Vertex source, Vertex destination) {
     i++;
   }
   
-  // reverse path to be returned
   reverse(path.begin(),path.end());
   return path;
 }
-
 bool algorithms::DLS(Vertex source, Vertex target, int limit) {
   if (source == target) {
     return true;
