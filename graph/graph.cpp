@@ -5,6 +5,11 @@ using namespace std;
 
 Graph::Graph(){}
 
+/**
+ * @brief Inserts a vertex with a specified name
+ * 
+ * @param track_name Song to be inserted
+ */
 void Graph::InsertVertex(string track_name) {
   if (vertices_.find(track_name) != vertices_.end()) {
     return;
@@ -12,6 +17,11 @@ void Graph::InsertVertex(string track_name) {
   vertices_.insert(track_name);
 }
 
+/**
+ * @brief Removes a specified song from the graph
+ * 
+ * @param track_name Song to be removed
+ */
 void Graph::RemoveVertex(string track_name) {
   for (auto it = edge_list_.begin(); it != edge_list_.end(); it++) {
     Edge e = *it;
@@ -25,6 +35,13 @@ void Graph::RemoveVertex(string track_name) {
   vertices_.erase(track_name);
 }
 
+/**
+ * @brief Inserts an edge between two nodes
+ * 
+ * @param track1 
+ * @param track2 
+ * @param weight 
+ */
 void Graph::InsertEdge(string track1, string track2, int weight) {
   for (Edge& e : edge_list_) {
     if (e.start == track2 && e.end == track1) {
