@@ -38,7 +38,7 @@ void algorithms::SCCUtil(Vertex src, Graph & g, unordered_set<Vertex> & visited,
             SCCUtil(vertex_list[i], g, visited, s); // calls DFS recursively on adjecent vertex
         }
     }
-    s.push_back(src); //add vertex to the stack - see parameters for more detailed explanation of utility
+    s.push_back(src); //add vertex to the stack
 }
 
 vector<Vertex> algorithms::traverse()
