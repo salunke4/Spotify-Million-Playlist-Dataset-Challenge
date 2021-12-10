@@ -11,6 +11,22 @@ algorithms::algorithms(Graph g, string start) {
   start_ = start;
 }
 
+struct VertexWeight{
+    Vertex vertexName;
+    double distance;
+    bool visited;
+    Vertex previous;
+};
+
+class Compare
+{
+  public:
+      bool operator() (VertexWeight *a, VertexWeight *b)
+      {
+          return a->distance > b->distance;
+      }
+};
+
 vector<string> algorithms::traverse() {
   stack<string> stack;
   vector<string> visited;
@@ -30,99 +46,84 @@ vector<string> algorithms::traverse() {
   return visited;
 }
 
-struct VertexWeight{
-    Vertex vertexName;
-    double distance;
-    bool visited;
-    Vertex previous;
-};
+vector<Vertex> algorithms::Dijkstras(Vertex source, Vertex destination) {
+  std::priority_queue<VertexWeight*, std::vector<VertexWeight*>, Compare> travelled;
+  map<Vertex, VertexWeight*> vmap;
+  vector<Vertex> vertices = graph_.GetVertices();
+  vector<VertexWeight*> weights;
 
-class Compare
-{
-  public:
-      bool operator() (VertexWeight *a, VertexWeight *b)
-      {
-          return a->distance > b->distance;
+  size_t i = 0;
+  while (i < vertices.size()) {
+    VertexWeight *newWeight = new VertexWeight;
+    newWeight->vertexName = vertices.at(i);
+    newWeight->distance = std::numeric_limits<double>::max();
+    newWeight->visited = false;
+    weights.push_back(newWeight);
+    
+    vmap[vertices.at(i)] = newWeight;
+    
+    if (vertices.at(i) == source) {
+      newWeight->distance = 0;
+      travelled.push(newWeight);
+    }
+    i++;
+  }
+  
+  while (travelled.top()->vertexName != destination) { 
+    VertexWeight *current = travelled.top();
+    travelled.pop();
+    
+    if (!current->visited) {
+      vector<Vertex> neighborList = graph_.AdjacentVertices(current->vertexName);
+      i = 0;
+      while (i < neighborList.size()) {
+        VertexWeight *neighbor = vmap[neighborList.at(i)];
+        if (!neighbor->visited) { 
+          double currentToNeighborEdgeWeight = graph_.GetEdgeValue(current->vertexName, neighbor->vertexName);
+
+          if (neighbor-> distance > current->distance + currentToNeighborEdgeWeight) {
+            neighbor-> distance = current->distance + currentToNeighborEdgeWeight;
+            neighbor-> previous = current -> vertexName;
+          }
+          travelled.push(neighbor);
+        }
+        i++;
       }
-};
-
-vector<string> algorithms::Dijkstras(Vertex source, Vertex destination) {
-    // Create priority queue to store travelled locations in
-    std::priority_queue<VertexWeight*, std::vector<VertexWeight*>, Compare> travelled;
-    map<Vertex, VertexWeight*> vmap; // Create a map with vertex as key, and distance travelled from last point as value
-    
-    vector<string> vertices = graph_.GetVertices();
-    vector<VertexWeight*> allVertexWeights;
-
-    // Loop through all vertices to get vertex weights
-    for (size_t i = 0; i < vertices.size(); i++) {
-        VertexWeight *newVertexWeight = new VertexWeight;
-        newVertexWeight->vertexName = vertices.at(i);
-        newVertexWeight->distance = std::numeric_limits<double>::max();
-        newVertexWeight->visited = false;
-        allVertexWeights.push_back(newVertexWeight);
-        
-        vmap[vertices.at(i)] = newVertexWeight;
-        
-        if (vertices.at(i) == source) {
-            newVertexWeight->distance = 0;
-            travelled.push(newVertexWeight);
-        }
+      current-> visited = true;
     }
+  }
     
-    while (travelled.top()->vertexName != destination) { // Check if top of priority queue is the destination, if not run through code
-        VertexWeight *current = travelled.top(); // Get the last entry in path
-        travelled.pop();
-        
-        if (!current->visited) { //Check if current node is visited
-            vector<Vertex> neighborList = graph_.AdjacentVertices(current->vertexName); //Find adjacent Nodes
-            for (size_t i = 0; i < neighborList.size(); i++) {
-                VertexWeight *neighbor = vmap[neighborList.at(i)];
-                if (!neighbor->visited) { // Check if the neighboring node had been visited already
-                    double currentToNeighborEdgeWeight = graph_.GetEdgeValue(current->vertexName, neighbor->vertexName);
-                    //RUn through logic to update path
-                    if (neighbor-> distance > current->distance + currentToNeighborEdgeWeight) {
-                        neighbor-> distance = current->distance + currentToNeighborEdgeWeight;
-                        neighbor-> previous = current -> vertexName;
-                    }
-                    travelled.push(neighbor);
-                }
-            }
-            current-> visited = true;
-        }
-    }
-    
-    vector<Vertex> vertexPath;
-    VertexWeight *lastVertex = vmap[destination];
-    vertexPath.push_back(lastVertex->vertexName);
-    while (vertexPath.back() != source) {
-        vertexPath.push_back(vmap[vertexPath.back()]->previous);
-    }
-    
-    for (size_t i = 0; i<allVertexWeights.size(); i++) {
-        delete allVertexWeights.at(i);
-    }
-    
-    // returns the path in reverse order
-    reverse(vertexPath.begin(),vertexPath.end());
-    return vertexPath;
-    
+  vector<Vertex> path;
+  VertexWeight *last = vmap[destination];
+  path.push_back(last->vertexName);
+  while (path.back() != source) {
+    path.push_back(vmap[path.back()]->previous);
+  }
+  
+  i = 0;
+  while (i<weights.size()) {
+    delete weights.at(i);
+    i++;
+  }
+  
+  reverse(path.begin(),path.end());
+  return path;
 }
 
-bool algorithms::DLS(string source, string target, int limit) {
+bool algorithms::DLS(Vertex source, Vertex target, int limit) {
   if (source == target) {
     return true;
   }
   if (limit <= 0) {
     return false;
   }
-  for (string adjacent : graph_.AdjacentVertices(source)) {
+  for (Vertex adjacent : graph_.AdjacentVertices(source)) {
     if (DLS(adjacent, target, limit - 1) == true) return true;
   }
   return false;
 }
 
-bool algorithms::iterative_dfs(string source, string target, int max_depth) {
+bool algorithms::iterative_dfs(Vertex source, Vertex target, int max_depth) {
   for (int i = 0; i <= max_depth; i++) {
     if (DLS(source, target, i) == true) {
       return true;
