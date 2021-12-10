@@ -5,6 +5,9 @@
 
 using namespace std;
 
+using std::string;
+typedef string Vertex;
+
 struct Edge {
     int weight;
     string start, end;

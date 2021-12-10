@@ -1,0 +1,44 @@
+{
+    "info": {
+        "generated_on": "2017-12-03 08:41:42.057563",
+        "slice": "464000-464999",
+        "version": "v1"
+    },
+    "playlists": [
+        {
+            "name": "Chill tunes",
+            "num_tracks": 26,
+            "pid": 464000,
+            "tracks": [
+                {
+                    "track_name": "Redbone"
+                },
+                {
+                    "track_name": "Love$ick (feat. A$AP Rocky)"
+                },
+                {
+                    "track_name": "Pink + White"
+                },
+                {
+                    "track_name": "Sober"
+                }
+            ]
+        },
+        {
+            "name": "Punk Pop",
+            "num_tracks": 65,
+            "pid": 464001,
+            "tracks": [
+                {
+                    "track_name": "Me and Your Mama"
+                },
+                {
+                    "track_name": "Redbone"
+                },
+                {
+                    "track_name": "Love$ick (feat. A$AP Rocky)"
+                }
+            ]
+        }
+    ]
+}

@@ -261,7 +261,7 @@ TEST_CASE("Cycle Dijkstras") {
     REQUIRE(outcome == expected);
 
     outcome = dijkstra.Dijkstras("A", "D");
-    expected = {"A", "C", "D"};
+    expected = {"A", "E", "D"};
     REQUIRE(outcome == expected);
 
     outcome = dijkstra.Dijkstras("A", "E");
