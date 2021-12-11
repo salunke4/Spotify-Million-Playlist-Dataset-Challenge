@@ -14,9 +14,9 @@ We have chosen to implement Depth-First Search (DFS), Dijkstra’s Algorithm, an
 songs on the graph, generating the 5 most similar songs. 
 We will then iterate over these songs and create nodes for each song in the list after the first node is made. We will start with the input node and use Iterative Deepening Depth-First Search (IDS), (which is a state-space/graph search strategy in which a depth-limited version of DFS is run repeatedly with increasing depth limits until the goal is found) to connect every pair of songs that share a playlist with edge weights equal to the inverse of the number of shared playlists. once the graph has been formed, we will then use Dijkstra's techniques to find the shortest path from the input node to each song in the network. We then use this data to find the five closest nodes to the input song and add them to the playlist of suggested songs. After adding these nodes, we will find the betweenness centrality for each node and add the five nodes with the highest centrality to the list of recommended songs. Implementing all three algorithms help in keeping the runtime low and also ensures that half of the songs are very close to the input while the other half are more popular songs with fewer similarities. 
 The runtimes are as follows-
-Depth-First Search (DFS): O(m+n)
-Iterative Deepening Depth-First Search (IDS): O(m^n)
-Dijkstra’s Algorithm: O(m + log(n))
+- Depth-First Search (DFS): O(m+n)
+- Iterative Deepening Depth-First Search (IDS): O(m^n)
+- Dijkstra’s Algorithm: O(m + log(n))
 
 
 ### Final  Deliverable
@@ -27,10 +27,10 @@ We will end up creating an executable file that will satisfy all of the required
 ### Timeline
 
 We plan to adhere to the following schedule.
-Week 0 (11/1): Complete the team contract and project proposal
-Week 1 (11/8): Confirm reliability of the dataset and begin data cleaning & processing
-Week 2 (11/15): Finish data cleaning and begin implementing the algorithms
-Week 3 (11/22): Continue implementation of algorithms and start testing
-Week 4 (11/29): Finalize the algorithms and complete testing
-Week 5 (12/6): Complete the written report and final presentation in advance of the final deadline of 12/13
+- Week 0 (11/1): Complete the team contract and project proposal
+- Week 1 (11/8): Confirm reliability of the dataset and begin data cleaning & processing
+- Week 2 (11/15): Finish data cleaning and begin implementing the algorithms
+- Week 3 (11/22): Continue implementation of algorithms and start testing
+- Week 4 (11/29): Finalize the algorithms and complete testing
+- Week 5 (12/6): Complete the written report and final presentation in advance of the final deadline of 12/13
 
