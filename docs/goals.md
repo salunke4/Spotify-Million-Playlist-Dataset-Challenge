@@ -5,7 +5,7 @@ The goal of this project was to load one or more data files as a graph and be ab
 
 ### The Data Set
 
-Our team has chosen to use the Million Playlist Dataset by Spotify. It consists of 1 million playlists, with over 2 million unique tracks and around 300,000 artists. The dataset is from AICrowd (https://www.aicrowd.com/challenges/spotify-million-playlist-dataset-challenge#dataset). Each playlist contains a title, the tracklist, and several other metadata. We processed and cleaned the data using the JSON library, Jupyter Notebook, and Python. This allowed us to create a graph connecting each song, where each song is represented by a node.
+Our team has chosen to use the Million Playlist Dataset by Spotify. It consists of 1 million playlists, with over 2 million unique tracks and around 300,000 artists. The dataset is from [AICrowd](https://www.aicrowd.com/challenges/spotify-million-playlist-dataset-challenge#dataset). Each playlist contains a title, the tracklist, and several other metadata. We processed and cleaned the data using the JSON library, Jupyter Notebook, and Python. This allowed us to create a graph connecting each song, where each song is represented by a node.
 
 
 ### The Algorithms We Chose to Implement
