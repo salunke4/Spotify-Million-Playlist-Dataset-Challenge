@@ -85,7 +85,7 @@ TEST_CASE("Complex DFS") {
     vector<string> outcome, expected;
 
     outcome = dfs.traverse();
-    expected = {"A", "B", "C", "D", "E", "F", "G"};
+    expected = {"A", "F", "C", "E", "G", "D", "B"};
     REQUIRE(outcome == expected);
 }
 
@@ -116,7 +116,7 @@ TEST_CASE("Cycle DFS") {
     vector<string> outcome, expected;
 
     outcome = dfs.traverse();
-    expected = {"A", "B", "C", "D", "E", "F"};
+    expected = {"A", "B", "E", "F", "D", "C"};
     REQUIRE(outcome == expected);
 }
 
