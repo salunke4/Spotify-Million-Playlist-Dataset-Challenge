@@ -29,7 +29,7 @@ class Compare
 /**
  * @brief Inserts a vertex with a specified name
  * 
- * @param track_name Song to be inserted
+ * @param track_name 
  */
 void algorithms::SCCUtil(Vertex src, Graph & g, unordered_set<Vertex> & visited, vector<Vertex> & s)
 {
