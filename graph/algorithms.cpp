@@ -26,7 +26,11 @@ class Compare
           return a->distance > b->distance;
       }
 };
-
+/**
+ * @brief Inserts a vertex with a specified name
+ * 
+ * @param track_name Song to be inserted
+ */
 void algorithms::SCCUtil(Vertex src, Graph & g, unordered_set<Vertex> & visited, vector<Vertex> & s)
 {
     visited.insert(src); // marks vertex as visted
