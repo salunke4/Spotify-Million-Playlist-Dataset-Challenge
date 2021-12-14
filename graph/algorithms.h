@@ -11,7 +11,7 @@ class algorithms {
     private:
         Graph graph_;
         string start_;
-        void SCCUtil(Vertex src, Graph & g, unordered_set<Vertex> & visited, vector<Vertex> & s);
+        void DFS_helper(Vertex src, Graph & g, unordered_set<Vertex> & visited, vector<Vertex> & s);
 
     public:
         algorithms(Graph g, Vertex start);
