@@ -27,55 +27,70 @@ class Compare
       }
 };
 /**
- * @brief Inserts a vertex with a specified name
+ * @brief Helper function for Traverse
  * 
- * @param track_name 
+ * @param src
+ * @param g
+ * @param visited
  */
+
+
 void algorithms::SCCUtil(Vertex src, Graph & g, unordered_set<Vertex> & visited, vector<Vertex> & s)
 {
-    visited.insert(src); // marks vertex as visted
-    vector<Vertex> vertex_list = graph_.AdjacentVertices(src);  // get a list of adjacent vertices
-    for (size_t i = 0; i < vertex_list.size(); i++) // iterates over adjecent vertices
+    visited.insert(src); // vertex is marked as visited
+    vector<Vertex> vertex_list = graph_.AdjacentVertices(src);  // obtain a list of vertices that are adjacent
+    for (size_t i = 0; i < vertex_list.size(); i++) // iterates over vertices that are close together
     {
-        if(visited.find(vertex_list[i]) == visited.end()) // checks if this adjecent vertex is unvisted
+        if(visited.find(vertex_list[i]) == visited.end()) // determines whether or not this adjacent vertex is unvisted
         {
-            SCCUtil(vertex_list[i], g, visited, s); // calls DFS recursively on adjecent vertex
+            SCCUtil(vertex_list[i], g, visited, s); //recursively calls DFS on adjacent vertex
         }
     }
-    s.push_back(src); //add vertex to the stack
+    s.push_back(src); //vertext + 1 to stack
 }
-
+/**
+ * @brief Our DFS Algorithm, Uses SCCUtil
+ * 
+ */
 vector<Vertex> algorithms::traverse()
 {
     vector<Vertex> explored; // Vector to store all vertices in graph explored through DFS
-    unordered_set<Vertex> visited; // Unordered set to track visited vertices
-    vector<Vertex> vertices = graph_.GetVertices(); // Gets vector of all vertices in graph
-    for(size_t i = 0; i < vertices.size(); i++) // Iterates over all vertices
+    unordered_set<Vertex> visited; // Visited vertices are tracked using an unordered collection
+
+    vector<Vertex> vertices = graph_.GetVertices(); // Gets the vector of all the graph's vertices
+    for(size_t i = 0; i < vertices.size(); i++) // Iterates through all of the vertices
     {
-        if(visited.find(vertices[i]) == visited.end()) // Checks if vertex is unvisited
+        if(visited.find(vertices[i]) == visited.end()) // Checks if a vertex hasn't been visited before
         {
-            SCCUtil(vertices[i], graph_, visited, explored); // If unexplored, DFSs from this vertex and adds all reachable vertices
+            SCCUtil(vertices[i], graph_, visited, explored); // DFSs from this vertex and adds all reachable vertices if it is unexplored
         }
     }
     reverse(explored.begin(),explored.end());
     return explored; // Returns vector of all vertices in graph explored through DFS
 }
 
+
+/**
+ * @brief Dijkstras Algorithm Implementation
+ * 
+ * @param source
+ * @param destination
+ */
 vector<Vertex> algorithms::Dijkstras(Vertex source, Vertex destination) {
   std::priority_queue<VertexWeight*, std::vector<VertexWeight*>, Compare> travelled;
   map<Vertex, VertexWeight*> vmap;
-  vector<Vertex> vertices = graph_.GetVertices();
+  vector<Vertex> vertices = graph_.GetVertices(); //Gets vertices from the graph
   vector<VertexWeight*> weights;
 
   size_t i = 0;
   while (i < vertices.size()) {
-    VertexWeight *newWeight = new VertexWeight;
+    VertexWeight *newWeight = new VertexWeight; // Establishes the weights of the vertexs
     newWeight->vertexName = vertices.at(i);
     newWeight->distance = std::numeric_limits<double>::max();
     newWeight->visited = false;
     weights.push_back(newWeight);
     
-    vmap[vertices.at(i)] = newWeight;
+    vmap[vertices.at(i)] = newWeight; // The new weight being set while iterated through
     
     if (vertices.at(i) == source) {
       newWeight->distance = 0;
@@ -124,6 +139,14 @@ vector<Vertex> algorithms::Dijkstras(Vertex source, Vertex destination) {
   reverse(path.begin(),path.end());
   return path;
 }
+
+/**
+ * @brief Helper function for Interative depth first search algorithm
+ * 
+ * @param source
+ * @param target
+ * @param limit
+ */
 bool algorithms::DLS(Vertex source, Vertex target, int limit) {
   if (source == target) {
     return true;
@@ -132,14 +155,20 @@ bool algorithms::DLS(Vertex source, Vertex target, int limit) {
     return false;
   }
   for (Vertex adjacent : graph_.AdjacentVertices(source)) {
-    if (DLS(adjacent, target, limit - 1) == true) return true;
+    if (DLS(adjacent, target, limit - 1) == true) return true; // Calls function DLS Recursive
   }
   return false;
 }
-
+/**
+ * @brief Interative depth first search algorithm
+ * 
+ * @param source
+ * @param target
+ * @param max_depth
+ */
 bool algorithms::iterative_dfs(Vertex source, Vertex target, int max_depth) {
   for (int i = 0; i <= max_depth; i++) {
-    if (DLS(source, target, i) == true) {
+    if (DLS(source, target, i) == true) { //Calls itself recursively
       return true;
     }
   }
