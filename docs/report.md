@@ -58,4 +58,4 @@ The results of these test cases are shown below.
 
 After running make, our program then prompts the user to enter a starting & ending song name, as well as a max search depth. After a few seconds, the program will generate a list of song recommendations for the user, proving that the program does indeed work successfully. This process is depicted below. 
 
-![Created Playlist](https://github-dev.cs.illinois.edu/cs225-fa21/sperka2-rohanhh2-guneets2-salunke4/blob/main/docs/images/passing.png)
+![Created Playlist](https://github-dev.cs.illinois.edu/cs225-fa21/sperka2-rohanhh2-guneets2-salunke4/blob/main/docs/images/playlist.png)
