@@ -2,8 +2,7 @@
 
 ## Video Report
 
-Our final video presentation can be found [here](https://drive.google.com/file/d/1zBpBYBeDKzOXw1QtpB0e_YpvLzq0iCOb/view?usp=sharing
-https://drive.google.com/file/d/1zBpBYBeDKzOXw1QtpB0e_YpvLzq0iCOb/view?usp=sharing) or in the docs folder of our repository.
+Our final video presentation can be found [here](https://drive.google.com/file/d/1zBpBYBeDKzOXw1QtpB0e_YpvLzq0iCOb/view?usp=sharing) or in the docs folder of our repository.
 
 ## Objectives
 
@@ -20,6 +19,8 @@ To identify related songs, we used three graph algorithms:
 ## Data
 
 In its original form, the MPD lists 1 million playlists, each containing their respective songs and various metadata about each track, including its URL, duration, album, and other information. Since we were only interested in the tracks on each playlist, our first task was to create a Python script capable of cleaning the data, i.e. parsing it so that only the track names remained. In the following picture, a slice of the raw data is parsed into the usable data by our Python script. 
+
+<img src="/images/parsing.png" alt="Parsing" width="400"/> 
 
 ![Parsing](/images/parsing.png)
 
