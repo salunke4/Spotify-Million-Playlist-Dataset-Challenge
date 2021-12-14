@@ -57,6 +57,12 @@ void Graph::InsertEdge(string track1, string track2, int weight) {
   edge_list_.push_back(e);
 }
 
+/**
+ * @brief Removes an edge between the two nodes
+ * 
+ * @param track1 
+ * @param track2 
+ */
 void Graph::RemoveEdge(string track1, string track2) {
   for (auto it = edge_list_.begin(); it != edge_list_.end(); it++) {
     Edge e = *it;
@@ -69,6 +75,13 @@ void Graph::RemoveEdge(string track1, string track2) {
   }
 }
 
+/**
+ * @brief Returns the value of an edge
+ * 
+ * @param track1 
+ * @param track2 
+ * @return int 
+ */
 int Graph::GetEdgeValue(string track1, string track2) const {
   for (const Edge& e : edge_list_) {
     if (e.start == track2 && e.end == track1) {
@@ -81,6 +94,14 @@ int Graph::GetEdgeValue(string track1, string track2) const {
   return -1;
 }
 
+/**
+ * @brief Returns true/false if two nodes are adjacent
+ * 
+ * @param track1 
+ * @param track2 
+ * @return true 
+ * @return false 
+ */
 bool Graph::IsAdjacent(string track1, string track2) const {
   for (const Edge& e : edge_list_) {
     if (e.start == track2 && e.end == track1) {
@@ -93,6 +114,12 @@ bool Graph::IsAdjacent(string track1, string track2) const {
   return false;
 }
 
+/**
+ * @brief Returns a vector of adjacent vertices
+ * 
+ * @param track 
+ * @return vector<string> 
+ */
 vector<string> Graph::AdjacentVertices(string track) const {
   vector<string> adjacents;
   for (const Edge& e : edge_list_) {

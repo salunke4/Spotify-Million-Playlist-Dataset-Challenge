@@ -35,7 +35,7 @@ class Compare
  */
 
 
-void algorithms::SCCUtil(Vertex src, Graph & g, unordered_set<Vertex> & visited, vector<Vertex> & s)
+void algorithms::DFS_helper(Vertex src, Graph & g, unordered_set<Vertex> & visited, vector<Vertex> & s)
 {
     visited.insert(src); // vertex is marked as visited
     vector<Vertex> vertex_list = graph_.AdjacentVertices(src);  // obtain a list of vertices that are adjacent
@@ -43,14 +43,14 @@ void algorithms::SCCUtil(Vertex src, Graph & g, unordered_set<Vertex> & visited,
     {
         if(visited.find(vertex_list[i]) == visited.end()) // determines whether or not this adjacent vertex is unvisted
         {
-            SCCUtil(vertex_list[i], g, visited, s); //recursively calls DFS on adjacent vertex
+            DFS_helper(vertex_list[i], g, visited, s); //recursively calls DFS on adjacent vertex
         }
     }
-    s.push_back(src); //vertext + 1 to stack
+    s.push_back(src); // vertex + 1 to stack
 }
+
 /**
- * @brief Our DFS Algorithm, Uses SCCUtil
- * 
+ * @brief Our DFS Algorithm, Uses DFS_helper
  */
 vector<Vertex> algorithms::traverse()
 {
@@ -62,7 +62,7 @@ vector<Vertex> algorithms::traverse()
     {
         if(visited.find(vertices[i]) == visited.end()) // Checks if a vertex hasn't been visited before
         {
-            SCCUtil(vertices[i], graph_, visited, explored); // DFSs from this vertex and adds all reachable vertices if it is unexplored
+            DFS_helper(vertices[i], graph_, visited, explored); // DFSs from this vertex and adds all reachable vertices if it is unexplored
         }
     }
     reverse(explored.begin(),explored.end());
