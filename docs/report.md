@@ -1,14 +1,27 @@
 # Results
 
-* Our Objectives 
-    * Represent data from Spotify's public playlists as a graph in which: 
-    * Songs are represented as vertices 
-    * Songs are connected by edges given they share a playlist 
-    * The number of shared playlists determines the edge weight
-* Given a song as an input, use the following techniques to locate related songs:
-    * Depth-first search
-    * Dijkstra’s algorithm
-    * Iterative deepening depth-first search
+## Video Report
+
+Our final video presentation can be found [here](https://drive.google.com/file/d/1zBpBYBeDKzOXw1QtpB0e_YpvLzq0iCOb/view?usp=sharing
+https://drive.google.com/file/d/1zBpBYBeDKzOXw1QtpB0e_YpvLzq0iCOb/view?usp=sharing) or in the docs folder of our repository.
+
+## Objectives
+
+The objective of this project was to represent data from Spotify's Million Playlist Dataset (MPD). Given two songs as inputs, we want to be able to generate a playlist of similar songs based on common songs from other playlists. This data is represented in a graph where:
+* Songs are vertices
+* These vertices are connected by edges if they exists in a common playlist
+* The number of common playlists determines the edge weights
+
+To identify related songs, we used three graph algorithms:
+* Depth-First Search (DFS)
+* Dijstra's Algorithm
+* Iterative Deepening Depth-First Search (IDDFS)
+
+## Data
+
+In its original form, the MPD lists 1 million playlists, each containing their respective songs and various metadata about each track, including its URL, duration, album, and other information. Since we were only interested in the tracks on each playlist, our first task was to create a Python script capable of cleaning the data, i.e. parsing it so that only the track names remained. In the following picture, a slice of the raw data is parsed into the usable data by our Python script. 
+
+![Parsing](/images/parsing.png)
 
 * Visualization of a graph
 
