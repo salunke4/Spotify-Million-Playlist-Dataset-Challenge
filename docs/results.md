@@ -1,4 +1,4 @@
-# Results
+# Report
 
 ## Video Report
 
@@ -24,7 +24,7 @@ In its original form, the MPD lists 1 million playlists, each containing their r
 
 ![Parsing](https://github-dev.cs.illinois.edu/cs225-fa21/sperka2-rohanhh2-guneets2-salunke4/blob/main/docs/images/parsing.png)
 
-We also wrote test cases to verify that our parsing worked correctly, which you can see is tests/test_parsing.cpp. 
+We also wrote test cases to verify that our parsing worked correctly, which you can see in tests/test_parsing.cpp. 
 
 ## Graph
 
