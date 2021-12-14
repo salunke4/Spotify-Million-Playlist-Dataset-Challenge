@@ -22,7 +22,7 @@ In its original form, the MPD lists 1 million playlists, each containing their r
 
 <img src="/images/parsing.png" alt="Parsing" width="400"/> 
 
-![Parsing](/images/parsing.png)
+![Parsing](https://github-dev.cs.illinois.edu/cs225-fa21/sperka2-rohanhh2-guneets2-salunke4/blob/main/docs/images/parsing.png)
 
 * Visualization of a graph
 
