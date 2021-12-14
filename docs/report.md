@@ -16,6 +16,8 @@ To identify related songs, we used three graph algorithms:
 * Dijstra's Algorithm
 * Iterative Deepening Depth-First Search (IDDFS)
 
+By the end of the project, all of our objectives were met and our algorithms were successfully able to generate a playlist of recommended songs. 
+
 ## Data
 
 In its original form, the MPD lists 1 million playlists, each containing their respective songs and various metadata about each track, including its URL, duration, album, and other information. Since we were only interested in the tracks on each playlist, our first task was to create a Python script capable of cleaning the data, i.e. parsing it so that only the track names remained. In the following picture, a slice of the raw data is parsed into the usable data by our Python script. 
@@ -36,43 +38,24 @@ The first algorithm we implemented was a DFS, used to traverse the entire graph 
 
 ### Dijkstra's Algorithm
 
+Dijkstra's Algorithm was useful in easily discovering the shortest path between two nodes. The algorithm accepts a source and destination vertex, and returns a vector of vertices containing the path between the two nodes. This path was especially useful given the nature of our program, as this path provided us with a list of recommended songs for the user. 
 
+### Iterative Deepening Depth-First Search (IDDFS)
+
+This final algorithm accepted three parameters: a source node, a destination node, and a maximum search depth. An IDDFS works the same as a DFS, expect with a constraint - if the number of edges between the source and destination nodes is fewer than the maximum search depth, the program will return true. This algorithm was especially useful for the highly dense graphs used in this project, as determining whether two nodes are linked can quickly become very time-consuming and inefficient. IDDFS allows us to avoid these long search times and avoids the problem of recommending songs that are only loosely related. 
 
 ### Tests
 
 All three of our algorithms are implemented in graph/algorithms.cpp and are tested in tests/test_algorithms.cpp. Each algorithm was tested on 3 test graphs: a standard, tree-like graph; a complex graph with many edges; and a graph containing a cycle. Since we knew that the graph representing our data would be highly interconnected, we wanted to ensure that the algorithms were functional on a variety of possible graphs. 
 
-![Graph Tests](https://github-dev.cs.illinois.edu/cs225-fa21/sperka2-rohanhh2-guneets2-salunke4/blob/main/docs/images/tests.png)
+![Graphs](https://github-dev.cs.illinois.edu/cs225-fa21/sperka2-rohanhh2-guneets2-salunke4/blob/main/docs/images/tests.png)
 
-### Dijkstra's Algorithm
+The results of these test cases are shown below. 
 
-* Dijkstra Algorithm
+![Test Passing](https://github-dev.cs.illinois.edu/cs225-fa21/sperka2-rohanhh2-guneets2-salunke4/blob/main/docs/images/passing.png)
 
-    * The shortest path from the start node to the end node is returned by our version of Dijkstra's algorithm, which accepts a source node and a destination node as inputs.
+### Results
 
-    * We can easily discover the shortest path between two songs in our graph using this method. As a result, this path contains songs that closely connect the source and destination nodes, providing us with a list of similar songs to recommend to the user.
+After running make, our program then prompts the user to enter a starting & ending song name, as well as a max search depth. After a few seconds, the program will generate a list of song recommendations for the user, proving that the program does indeed work successfully. This process is depicted below. 
 
-    * This function is used by our algorithm to identify the shortest path between two input nodes, resulting in a list of songs that are connected to both inputs.
-
-    * Three different graphs were used to test this method: a tree-like graph, a graph with a cycle, and a graph with many densely connected components.
-
-* Depth-first search
-
-    * Given a graph and a starting node, this method provides a valid traversal of all nodes reachable from the starting node.
-
-    * For our purposes, this means that DFS (which we name traverse() in our application) starts with one song and builds a list of all songs accessible from the input via shared playlists.
-
-    * Three different graphs were used to test this method: a tree-like graph, a graph with a cycle, and a graph with many densely connected components.
-
-* Iterative deepening depth-first search
-    * A source node, a destination node, and an int that defines the maximum search depth are the three parameters of iterative deeping depth-first search.
-
-    * If the number of edges between the source and destination nodes is fewer than the maximum search depth, it returns true; otherwise, it returns false.
-
-    * Because our graph contains a high number of densely coupled nodes, determining whether two components are linked can be time-consuming and inefficient.
-
-    * IDDFS mitigates this problem by limiting searching up to a specific depth, allowing us to avoid extremely long search durations and avoiding the problem of recommending songs that are only loosely related and differ greatly from the source node.
-
-    * In our software, we utilize this method to check that the two input nodes are connected by a finite number of edges before calculating the shortest path between them using Dijkstra's algorithm.
-
-    * This method was tested on three different graphs this time: a tree-like graph, a graph containing a cycle, and a graph with a lot of densely connected components.
+![Created Playlist](https://github-dev.cs.illinois.edu/cs225-fa21/sperka2-rohanhh2-guneets2-salunke4/blob/main/docs/images/passing.png)
