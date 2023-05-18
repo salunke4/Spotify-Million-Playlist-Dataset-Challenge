@@ -2,7 +2,7 @@
 
 ## Overview
 
-Welcome to our CS225 final project, a playlist generator. This program will provide you with a list of recommended songs based on two tracks, utilizing Spotify's Million Playlist Dataset. To use this program, please follow the following instructions:
+Welcome to our project, a playlist generator. This program will provide you with a list of recommended songs based on two tracks, utilizing Spotify's Million Playlist Dataset. To use this program, please follow the following instructions:
 
 1. Download the repository to your computer and unzip the program
 2. Run "make" and then "./main"
